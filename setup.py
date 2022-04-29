@@ -217,6 +217,11 @@ def get_extensions():
             extra_compile_args["nvcc"].append("-O0")
             extra_compile_args["nvcc"].append("-g")
 
+    enable_openmp = os.getenv("OPENMP", "0") == "1"
+    if enable_openmp:
+        print("Compile with openmp enabled")
+        extra_compile_args["cxx"].append("-fopenmp")
+
     sources = [os.path.join(extensions_dir, s) for s in sources]
 
     include_dirs = [extensions_dir]
